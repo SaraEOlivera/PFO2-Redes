@@ -71,27 +71,37 @@ def registrar_usuarios():
 
 @servidor.route("/login", methods=['POST'])
 def iniciar_sesion():
-    credenciales = request.json 
+    conexion = None
+    try:
+        credenciales = request.json 
 
-    usuario = credenciales.get("usuario")
-    clave = credenciales.get("clave")
-    if usuario == None or clave == None:
-        return "Faltan datos"
-    conexion = sqlite3.connect("usuarios.db")   
-    cursor = conexion.cursor()
-    cursor.execute("""
-        select clave from registros where usuario = ?
-    """, (usuario,))
+        usuario = credenciales.get("usuario")
+        clave = credenciales.get("clave")
+        if usuario == None or clave == None:
+            return "Faltan datos"
+        conexion = sqlite3.connect("usuarios.db")   
+        cursor = conexion.cursor()
+        cursor.execute("""
+            select clave from registros where usuario = ?
+        """, (usuario,))
 
-    clave_almacenada = cursor.fetchone()
-    if clave_almacenada == None:
-        return "Usuario inexistente"
-    else:
-        check_password_hash(clave_almacenada[0], clave) #true/false
+        clave_almacenada = cursor.fetchone()
+        if clave_almacenada == None:
+            return "Usuario inexistente"
+        else:
+            check_password_hash(clave_almacenada[0], clave) #true/false
 
-    if check_password_hash(clave_almacenada[0], clave):
-        return redirect(url_for('mostrar_tareas'))
-    return "Datos ingresados incorrectos"
+        if check_password_hash(clave_almacenada[0], clave):
+            return redirect(url_for('mostrar_tareas'))
+        return "Datos ingresados incorrectos"
+    except sqlite3.Error as e:
+        print(f"Error en la BD: {e}")
+    finally:
+        if conexion:
+            conexion.close()
+
+
+
     
 @servidor.route("/tareas", methods=['GET'])
 def mostrar_tareas():
