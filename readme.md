@@ -44,7 +44,8 @@ El sistema está compuesto por un servidor API Flask que implementa una API REST
  	{ 
 	  "usuario" : "ana",
 	  "clave": "1111"
-	}```
+	}
+   ```
 
    ## Pruebas con Postman
 
