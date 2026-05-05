@@ -9,7 +9,7 @@ El sistema está compuesto por un servidor API Flask que implementa una API REST
 - las contraseñas no se almacenan en texto plano sino que se utiliza werkzeug para hashearlas
 
 ## Requisitos
-- Python 3.8 o superior 
+
 - Librerías utilizadas: flask, werkzeug, SQLite (incluída en Python) 
 
 ## Instalación del sistema
@@ -27,8 +27,8 @@ El sistema está compuesto por un servidor API Flask que implementa una API REST
 
 ## Cómo ejecutar el proyecto en VS Code
 
-1. Abre carpeta del proyecto en VS Code.
-2. Ejecuta el script principal:
+1. Abrir carpeta del proyecto en VS Code.
+2. Ejecutar el script principal:
    ```bash
    python servidor.py
    ```
@@ -44,9 +44,38 @@ El sistema está compuesto por un servidor API Flask que implementa una API REST
  	{ 
 	  "usuario" : "ana",
 	  "clave": "1111"
-	}
-      ```
+	}```
 
+   ## Pruebas con Postman
+
+   ### Registro de usuarios:
+
+   ![Registro exitoso](img/registro.jpg)
+
+   ### Error en el login:
+
+   ![Login erroneo](img/login_error.jpg)
+
+   ### Login exitoso:
+
+   ![Login ok](img/login_ok.jpg)
+
+   ### Contraseñas hasheadas:
+
+   ![contraseña hasheada](img/claves_hasheadas.jpg)
+
+
+## Respuestas Conceptuales:
+   
+### ¿Por qué hashear contraseñas?
+
+Hashear contraseñas es un proceso importante en criterios de seguridad ya que permite que las contraseñas se almacenen en la base de datos de forma segura y no como simple texto plano. El proceso de hashear una contraseña evita que se pueda obtener la clave original a partir de la cadena de caracteres almacenada.
+De esta manera, solo el usuario conoce la clave de acceso, y las contraseñas no quedan expuestas, lo que protege la seguridad de la cuenta y el acceso al sistema. 
+
+
+### Ventajas de usar SQLite en este proyecto
+
+SQLite viene incorporada a Python por lo que no requiere una instalación previa ni configuración para su utilización. Solo hay que importar ese módulo y funciona en un solo archivo, lo que la hace adecuada para proyectos como este. 
 
 ## Sara E. Olivera
 - Para la Segunda Práctica Formativa de Programación sobre Redes
